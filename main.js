@@ -13,19 +13,28 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(innerWidth,innerHeight)
 document.body.appendChild(renderer.domElement);
 
-const material = new THREE.MeshBasicMaterial({color: 0x0000FF, wireframe:true})
+const boxMaterial = new THREE.MeshBasicMaterial({color: 0x00F0F0, wireframe:true})
 const boxGeometry = new THREE.BoxGeometry(1,1,1)
+    boxGeometry.rotateZ(25)
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial)
+    scene.add(boxMesh)
 
-boxGeometry.rotateZ(25)
-const mesh = new THREE.Mesh(boxGeometry, material)
-scene.add(mesh)
+
+const octaMaterial = new THREE.MeshBasicMaterial({color: 0xFF00FF, wireframe:true})
+const octaGeometry = new THREE.OctahedronGeometry(1,1,1)
+    const octaMesh = new THREE.Mesh(octaGeometry, octaMaterial)
+    scene.add(octaMesh)
+
 camera.position.z = 5
+
 
 function animate(){
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    mesh.rotation.x += .01;
-    mesh.rotation.y += .01;
+    boxMesh.rotation.x += .01;
+    boxMesh.rotation.y += .01;
+    octaMesh.rotation.x += .015;
+    octaMesh.rotation.y += .015;
 }
 
 animate()
